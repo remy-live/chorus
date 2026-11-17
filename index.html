@@ -274,7 +274,9 @@ async function remplirFiche(PDFLib, bytes, d) {
     const [x0, y0, x1, y1] = rects[n], w = x1 - x0, h = y1 - y0;
     if (types[n] === 'case') {
       const cb = form.createCheckBox(n);
-      cb.addToPage(page, { x: x0, y: y0, width: w, height: h, borderWidth: 0, borderColor: undefined, backgroundColor: undefined, textColor: bleu });
+      // case un peu agrandie, fond blanc et bord noir : elle recouvre le carré imprimé et la coche se voit bien
+      const m = 1.5;
+      cb.addToPage(page, { x: x0 - m, y: y0 - m, width: w + 2 * m, height: h + 2 * m, borderWidth: 0.8, borderColor: rgb(0, 0, 0), backgroundColor: rgb(1, 1, 1), textColor: rgb(0, 0, 0.7) });
       if (coches[n]) cb.check();
     } else {
       const tf = form.createTextField(n);
